@@ -28,21 +28,21 @@ public:
 class Disciplina {
 private:
     string nome;
-    string professor;
+    // string professor; // pode ser que o professor mude na turma, então o ideal é cadastrar em Turma
 
 public:
-    Disciplina(string nome, string professor) : nome(nome), professor(professor) {}
+    Disciplina(string nome, string professor) : nome(nome){}//, professor(professor) {}
 
     string obterNome() {
         return nome;
     }
 
-    string obterProfessor() {
-        return professor;
-    }
+    // string obterProfessor() {
+    //     return professor;
+    // }
 
     void exibirDados() {
-        cout << "Disciplina: " << nome << ", Professor: " << professor << endl;
+        cout << "Disciplina: " << nome;// << ", Professor: " << professor << endl;
     }
 };
 
@@ -55,7 +55,7 @@ public:
     Turma(Disciplina disciplina) : disciplina(disciplina) {}
 
     void adicionarAluno(Aluno aluno) {
-        nomesAlunos.insert()
+        nomesAlunos.insert(aluno)
         nomesAlunos.push_back(aluno);
     }
 
@@ -75,18 +75,38 @@ public:
     }
 };
 
+void matricularAluno()
+{}
+
+void cadastrarDisciplina()
+{}
+
+void cadastrarTurma()
+{}
+
+void vincularAlunoDisciplina()
+{}
+
+void mostrarAlunos()
+{}
+
+void mostrarDisciplinas()
+{}
+
+void mostrarTurmas()
+{}
+
 int main() {
 
     int opcao = 0;
     do {
-        cout << "... menu ...\n1 - Matricular aluno \n 2 - Cadastrar disciplina \n
-        3 - Cadastrar turma \n4 - Vincular aluno a turma \n 5 - Mostrar alunos\n6 - Mostrar disciplinas\n7 - Mostrar turmas\n 0 - Fechar o programa";
+        cout << "... menu ...\n1 - Matricular aluno \n 2 - Cadastrar disciplina \n3 - Cadastrar turma \n4 - Vincular aluno a turma \n 5 - Mostrar alunos\n6 - Mostrar disciplinas\n7 - Mostrar turmas\n 0 - Fechar o programa";
         cin >> opcao;
 
-        if (opcao == 1) { ... } 
-        else if (opcao == 2) { ... } 
-        else if (opcao == 3) { ... } 
-        else if (opcao == 4) { ... } 
+        if (opcao == 1) matricularAluno(); 
+        else if (opcao == 2) cadastrarDisciplina();
+        else if (opcao == 3) cadastrarTurma();
+        else if (opcao == 4) vincularAlunoDisciplina();
         else if (opcao == 5) mostrarAlunos();
         else if (opcao == 6) mostrarDisciplinas();
         else if (opcao == 7) mostrarTurmas();
