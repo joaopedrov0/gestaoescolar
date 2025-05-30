@@ -4,6 +4,24 @@
 
 using namespace std;
 
+
+
+// class Escola {
+// private:
+//     string nome;
+//     vector<Aluno*> alunosMatriculados;
+//     vector<Disciplina*> disciplinasDisponiveis;
+//     vector<Turma*> turmas;
+// public:
+//     void alterarNome(string nome){}
+//     void matricularAluno(Aluno* aluno){}
+//     void cadastrarDisciplina(Disciplina* disciplina){}
+//     void criarTurma(Turma* turma){}
+    
+//     string obterNome(){}
+//     vector<Aluno*>(){}
+// };
+
 class Aluno {
 private:
     string nome;
@@ -12,10 +30,14 @@ private:
 public:
 
 
-    Aluno(string nome, int matricula) : nome(nome), matricula(matricula) {}
+    // Aluno(string nome, int matricula) : nome(nome), matricula(matricula) {}
 
-    string adicionarNome() {
-        return nome;
+    void alterarNome(string nome) {
+        this->nome = nome;
+    }
+
+    void alterarMatricula(int matricula) {
+        this->matricula = matricula;
     }
 
     string obterMatricula() {
@@ -33,12 +55,16 @@ private:
     // string professor; // pode ser que o professor mude na turma, então o ideal é cadastrar em Turma
 
 public:
-    Disciplina(string nome, string professor) : nome(nome){}//, professor(professor) {}
+    // Disciplina(string nome, string professor) : nome(nome){}//, professor(professor) {}
 
     string obterNome() {
         return nome;
     }
-
+    
+    void alterarNome(string nome) {
+        this->nome = nome;
+    }
+    
     // string obterProfessor() {
     //     return professor;
     // }
@@ -50,34 +76,52 @@ public:
 
 class Turma {
 private:
-    Disciplina disciplina;
-    vector<Aluno> nomesAlunos;
+    Disciplina* disciplina;
+    vector<Aluno*> nomesAlunos;
 
 public:
-    Turma(Disciplina disciplina) : disciplina(disciplina) {}
+    // Turma(Disciplina disciplina) : disciplina(disciplina) {}
 
-    void adicionarAluno(Aluno aluno) {
+    void adicionarAluno(Aluno* aluno) {
         nomesAlunos.push_back(aluno);
     }
 
     void listarAlunos() {
-        cout << "Alunos da disciplina " << disciplina.obterNome() << ":\n";
-        for (auto& aluno : nomesAlunos) {
-            aluno.exibirDados();
+        cout << "Alunos da disciplina " << disciplina->obterNome() << ":\n";
+        for (Aluno* aluno : nomesAlunos) {
+            aluno->exibirDados();
         }
     }
+    
+    void alterarDisciplina(Disciplina* disciplina){
+        this->disciplina = disciplina;
+    }
 
-    Disciplina obterDisciplina() {
+    Disciplina* obterDisciplina() {
         return disciplina;
     }
 
-    vector<Aluno> obterAlunos() {
+    vector<Aluno*> obterAlunos() {
         return nomesAlunos;
     }
 };
 
+Turma* turma = new Turma;
+Disciplina* matematica = new Disciplina;
+
 void matricularAluno()
-{}
+{
+    string nome;
+    int matricula;
+    cout << "Digite o nome do aluno: \n";
+    cin >> nome;
+    cout << "Digite o número de matrícula do aluno: \n";
+    cin >> matricula;
+    Aluno* aluno = new Aluno;
+    aluno->alterarNome(nome);
+    aluno->alterarMatricula(matricula);
+    turma->adicionarAluno(aluno);
+}
 
 void cadastrarDisciplina()
 {}
@@ -89,7 +133,9 @@ void vincularAlunoDisciplina()
 {}
 
 void mostrarAlunos()
-{}
+{
+    turma->listarAlunos();
+}
 
 void mostrarDisciplinas()
 {}
@@ -98,13 +144,18 @@ void mostrarTurmas()
 {}
 
 int main() {
-
+    
+    // nao posso colocar isso fora da main, pq nao se eu posso instanciar os objetos??
+    matematica->alterarNome("Matemática");
+    turma->alterarDisciplina(matematica);
+    // -------------------------------------------------------------------------------
+    
     int opcao = 0;
     do {
-        cout << "... menu ...\n1 - Matricular aluno \n 2 - Cadastrar disciplina \n3 - Cadastrar turma \n4 - Vincular aluno a turma \n 5 - Mostrar alunos\n6 - Mostrar disciplinas\n7 - Mostrar turmas\n 0 - Fechar o programa";
+        cout << "... menu ...\n1 - Matricular aluno \n2 - Cadastrar disciplina \n3 - Cadastrar turma \n4 - Vincular aluno a turma \n5 - Mostrar alunos\n6 - Mostrar disciplinas\n7 - Mostrar turmas\n0 - Fechar o programa\nDigite o código da ação: ";
         cin >> opcao;
 
-        if (opcao == 1) matricularAluno(); 
+        if (opcao == 1) matricularAluno();
         else if (opcao == 2) cadastrarDisciplina();
         else if (opcao == 3) cadastrarTurma();
         else if (opcao == 4) vincularAlunoDisciplina();
@@ -113,6 +164,7 @@ int main() {
         else if (opcao == 7) mostrarTurmas();
 
     } while (opcao != 0);
+
 
     return 0;
 }
